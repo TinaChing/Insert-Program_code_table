@@ -7,6 +7,11 @@ class Program
         // 設定連接字串，根據你提供的資訊來修改
         string connectionString = "User Id=xbosprod;Password=login123;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=172.16.63.106)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=xbos2gs)))";
 
+        Console.Write("Add New Table Name :");
+        string name = Console.ReadLine();
+        name = char.ToUpper(name[0]) + name.Substring(1).ToLower();
+        Console.WriteLine($"Name: {name}");
+
         while (true) // 一直執行直到使用者選擇退出
         {
             // 詢問操作類型
@@ -17,17 +22,17 @@ class Program
             {
                 // 輸入 program_code 和 table_name
                 Console.Write("Enter Program Code: ");
-                string programCode = Console.ReadLine();
+                string programCode = Console.ReadLine()?.ToUpper(); //轉大寫
 
                 Console.Write("Enter Table Name: ");
-                string tableName = Console.ReadLine();
+                string tableName = Console.ReadLine()?.ToLower();  //轉小寫
 
                 // 輸入 remark
                 Console.Write("Enter Remark: ");
                 string remark = Console.ReadLine();  // 這會讓使用者輸入 remark 的內容
 
                 // 其它固定欄位
-                string createUser = "Tina"; // 固定為 Tina
+                string createUser = name; // 固定為 name
 
                 // 插入資料到 PROGRAM_CODE_TABLE
                 using (OracleConnection connection = new OracleConnection(connectionString))  // 使用正確的 OracleConnection 類型
@@ -62,10 +67,10 @@ class Program
             {
                 // 輸入 program_code 和 table_name 來刪除
                 Console.Write("Enter Program Code to delete: ");
-                string programCodeToDelete = Console.ReadLine();
+                string programCodeToDelete = Console.ReadLine()?.ToUpper(); //轉大寫
 
                 Console.Write("Enter Table Name to delete: ");
-                string tableNameToDelete = Console.ReadLine();
+                string tableNameToDelete = Console.ReadLine()?.ToLower(); //轉小寫
 
                 // 刪除資料
                 using (OracleConnection connection = new OracleConnection(connectionString))
